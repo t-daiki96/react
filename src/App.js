@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+export default () => {
+  const users = [
+    { name: 'Taro', age: 10 },
+    { name: 'Hanako', age: 20 },
+    { name: 'yu' }
+  ]
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello World
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {users.map((user, index) => {
+        return <User name={user.name} age={user.age} key={index} />
+      })}
     </div>
-  );
+  )
 }
 
-export default App;
+const User = props => {
+  return <div>I am {props.name}, and {props.age} years old</div>
+}
+
+User.defaultProps = {
+  name: 'noname',
+  age: 8
+}
