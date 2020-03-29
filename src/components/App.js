@@ -1,16 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import { increment, decrement } from '../actions'
 
-export default () => {
-  return (<Counter />)
-}
-
-const Counter = () => {
-  let [counter, setCounter] = useState([0])
+const Counter = props => {
   return (
     <React.Fragment>
-      <button onClick={() => { setCounter(++counter) }}>plus</button>
-      <button onClick={() => { setCounter(--counter) }}>minus</button>
-      {counter}
+      <button onClick={props.increment}>plus</button>
+      <button onClick={props.decrement}>minus</button>
+      {props.value}
     </React.Fragment>
   )
 }
+
+const mapStateToProps = state => ({ value: state.count.value })
+const mapDispatchToProps = dispatch => ({
+  increment: () => dispatch(increment()),
+  decrement: () => dispatch(decrement())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter)
